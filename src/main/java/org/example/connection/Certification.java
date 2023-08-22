@@ -1,10 +1,7 @@
 package org.example.connection;
 
 import lombok.Getter;
-import java.io.FileNotFoundException;
-import java.security.KeyManagementException;
 import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.cert.Certificate;
