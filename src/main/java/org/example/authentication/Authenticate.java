@@ -13,9 +13,10 @@ public class Authenticate {
     public String getBasicAuthenticationCredential() throws UnsupportedEncodingException {
         String username = this.properties.username;
         String password = this.properties.password;
-        String credentials = username + ":" + password;
-        return Base64.getEncoder().encodeToString(
-                credentials.getBytes("UTF-8")
+        String str_credentials = username + ":" + password;
+        String credentials = Base64.getEncoder().encodeToString(
+                str_credentials.getBytes("UTF-8")
         );
+        return "Basic " + credentials;
     }
 }
