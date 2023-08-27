@@ -9,7 +9,7 @@ dist/
 snippet/
 # Compiled Java class files
 *.class
-
+settings.yaml
 # Compiled Python bytecode
 *.py[cod]
 
