@@ -11,18 +11,15 @@ import java.io.DataOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+@Getter
 public class ApisConnection {
 
-    @Getter
-    private String postData;
+    private final String postData;
 
-    @Getter
     public Properties properties;
 
-    @Getter
-    private HttpURLConnection connection;
+    private final HttpURLConnection connection;
 
-    @Getter
     private Authenticate authenticate;
 
     public ApisConnection(String[] args) throws IOException {
@@ -53,8 +50,10 @@ public class ApisConnection {
         }
     }
 
-    public void GetApisResult() throws IOException {
-        boolean isMatch = postData.equalsIgnoreCase("");
+    public String GetApisResult() throws IOException {
+        String rsp = "";
+
+        boolean isMatch = this.postData.equalsIgnoreCase("");
         if (isMatch) {
             System.out.println("No parameter");
         } else {
@@ -73,9 +72,12 @@ public class ApisConnection {
                 response.append(inputLine);
             }
             reader.close();
-            System.out.println("Response: " + response.toString());
+            rsp = response.toString();
+            // System.out.println("Response: " + response.toString());
         } else {
-            System.out.println("Resource Not Found");
+            // System.out.println("Resource Not Found");
+            rsp = "{\"status\": \"Resource not Found\"}";
         }
+        return rsp;
     }
 }
