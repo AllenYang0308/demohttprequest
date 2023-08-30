@@ -1,4 +1,4 @@
-package org.example;
+package org.example.conf;
 import java.io.*;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
