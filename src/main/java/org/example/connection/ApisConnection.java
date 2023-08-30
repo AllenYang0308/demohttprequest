@@ -22,12 +22,13 @@ public class ApisConnection {
 
     private Authenticate authenticate;
 
-    public ApisConnection(String[] args) throws IOException {
-        String apiURL = args[1];
-        String method = args[0];
-        postData = args[2];
-        if (args.length>3) {
-            new Certification(args[3]);
+    public ApisConnection(ConnectionProperty args) throws IOException {
+        String apiURL = args.apiUrl;
+        String method = args.method;
+        postData = args.postData;
+        boolean isMatch = args.certFile.equalsIgnoreCase("");
+        if (!isMatch) {
+            new Certification(args.certFile);
         }
         URL url = new URL(apiURL);
         properties = new Properties();
