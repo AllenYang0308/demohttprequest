@@ -33,7 +33,13 @@ public class ApisConnection {
         URL url = new URL(apiURL);
         properties = new Properties();
         connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod(method);
+        boolean patch = method.equalsIgnoreCase("PATCH");
+        if (patch) {
+            connection.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+            connection.setRequestMethod("POST");
+        } else {
+            connection.setRequestMethod(method);
+        }
         connection.setDoInput(true);
         connection.setDoOutput(true);
     }
@@ -55,9 +61,7 @@ public class ApisConnection {
         String rsp = "";
 
         boolean isMatch = this.postData.equalsIgnoreCase("");
-        if (isMatch) {
-            System.out.println("No parameter");
-        } else {
+        if (!isMatch) {
             DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.writeBytes(postData);
             outputStream.flush();
@@ -74,9 +78,7 @@ public class ApisConnection {
             }
             reader.close();
             rsp = response.toString();
-            // System.out.println("Response: " + response.toString());
         } else {
-            // System.out.println("Resource Not Found");
             rsp = "{\"status\": \"Resource not Found\"}";
         }
         return rsp;

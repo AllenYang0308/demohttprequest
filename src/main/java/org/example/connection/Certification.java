@@ -23,7 +23,6 @@ public class Certification {
     KeyStore keyStore;
 
     public Certification(String certPath) {
-        System.out.println(certPath);
         initX509TrustManager();
         setTrustManagerFactory(certPath);
     }
