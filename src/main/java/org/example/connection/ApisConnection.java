@@ -70,7 +70,6 @@ public class ApisConnection {
             outputStream.close();
         }
         int responseCode = this.connection.getResponseCode();
-        System.out.println(responseCode);
         if (
                 responseCode == HttpURLConnection.HTTP_OK
                         || responseCode == HttpURLConnection.HTTP_ACCEPTED
