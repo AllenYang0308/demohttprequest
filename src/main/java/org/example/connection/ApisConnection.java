@@ -10,6 +10,7 @@ import java.net.URL;
 import java.io.DataOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 @Getter
 public class ApisConnection {
@@ -63,12 +64,17 @@ public class ApisConnection {
         boolean isMatch = this.postData.equalsIgnoreCase("");
         if (!isMatch) {
             DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-            outputStream.writeBytes(postData);
+            outputStream.write(postData.getBytes(StandardCharsets.UTF_8));
+            // outputStream.writeBytes(postData);
             outputStream.flush();
             outputStream.close();
         }
         int responseCode = this.connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
+        if (
+                responseCode == HttpURLConnection.HTTP_OK
+                        || responseCode == HttpURLConnection.HTTP_ACCEPTED
+                        || responseCode == HttpURLConnection.HTTP_CREATED
+        ) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(this.connection.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
